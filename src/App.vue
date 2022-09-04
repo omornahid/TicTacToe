@@ -31,16 +31,16 @@ const CalculateWinner = (board) => {
   return null;
 };
 
-const winner = computed(() => CalculateWinner(board.value.flat()));
+const winner = computed(() => CalculateWinner(board.value.flat())); 
 
 const MakeMove = (x, y) => {
-  if (winner.value) return;
+  if (winner.value) return; //if winner
 
-  if (board.value[x][y]) return;
+  if (board.value[x][y] !=="") return; // if not empty
 
   board.value[x][y] = player.value;
 
-  player.value = player.value === "X" ? "O" : "X";
+  player.value = player.value === "X" ? "O" : "X"; //swap player
 };
 
 const ResetGame = () => {
@@ -49,7 +49,7 @@ const ResetGame = () => {
     ["", "", ""],
     ["", "", ""],
   ];
-  player.value = "X";
+  player.value = "O";
 };
 </script>
 
@@ -66,7 +66,7 @@ const ResetGame = () => {
           :key="y"
           @click="MakeMove(x, y)"
           :class="`border border-white w-24 h-24 hover:bg-gray-700 flex items-center justify-center material-icons-outlined text-4xl cursor-pointer ${
-            cell === 'X' ? 'text-pink-500' : 'text-blue-400'
+            cell === 'X' ? 'text-fuchsia-400' : 'text-lime-400'
           }`"
         >
           {{ cell === "X" ? "close" : cell === "O" ? "circle" : "" }}
@@ -75,14 +75,14 @@ const ResetGame = () => {
     </div>
 
     <div class="text-center">
-      <h2 v-if="winner" class="text-6xl font-bold mb-8">
+      <h2 v-if="winner" class="text-3xl font-bold mb-8">
         Player '{{ winner }}' wins!
       </h2>
       <button
         @click="ResetGame"
         class="px-4 py-2 bg-purple-500 rounded uppercase font-bold hover:bg-purple-600 duration-300"
       >
-        Reset
+        <span class="text-black">Reset</span>
       </button>
     </div>
   </main>
